@@ -1,4 +1,5 @@
 using Dar.IDP.DbContexts;
+using Dar.IDP.Pages;
 using Dar.IDP.Services;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
@@ -27,7 +28,6 @@ internal static class HostingExtensions
 
         // uncomment if you want to add a UI
         builder.Services.AddRazorPages();
-
         builder.Services.AddScoped<IPasswordHasher<Entities.User>,
             PasswordHasher<Entities.User>>();
         builder.Services.AddScoped<ILocalUserService, LocalUserService>();
@@ -47,6 +47,7 @@ internal static class HostingExtensions
             .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryClients(Config.Clients)
             .AddProfileService<LocalUserProfileService>();
+        var iamConfig = builder.Configuration.GetSection("IAM").Get<IAMConfig> ();
 
         builder.Services
              .AddAuthentication()
@@ -54,8 +55,8 @@ internal static class HostingExtensions
              {
                  options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                  options.Authority = "https://login.microsoftonline.com/325864d9-95ed-40d1-8e75-6090cbe5e443/v2.0";
-                 options.ClientId = "29b6cb0d-3b91-47d5-a57c-9ee164a636e9";
-                 options.ClientSecret = "VYo8Q~ZFU6nsYX3mWtlwkNW_bVSkxffWbDezJbty";
+                 options.ClientId = iamConfig.ClientId;
+                 options.ClientSecret = iamConfig.ClientSecret;
                  options.ResponseType = "code";
                  options.CallbackPath = new PathString("/signin-aad/");
                  options.SignedOutCallbackPath = new PathString("/signout-aad/");

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dar.IDP.Entities
 {
+    [Table("UserLogin")]
     public class UserLogin : IConcurrencyAware
     {
         [Key]
