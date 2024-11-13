@@ -5,6 +5,13 @@ namespace Dar.IDP.Services
 {
     public interface ILocalUserService
     {
+        Task AddExternalProviderToUser(
+           string subject,
+           string provider,
+           string providerIdentityKey);
+
+        Task<User> GetUserByEmailAsync(string email);
+
         Task<User> FindUserByExternalProviderAsync(
             string provider,
             string providerIdentityKey);
@@ -12,6 +19,7 @@ namespace Dar.IDP.Services
         public User AutoProvisionUser(string provider,
            string providerIdentityKey,
            IEnumerable<Claim> claims);
+
         Task<bool> ValidateCredentialsAsync(
              string userName,
              string password);
