@@ -5,6 +5,8 @@ namespace Dar.IDP.Services
 {
     public interface ILocalUserService
     {
+        Task<UserSecret> GetUserSecretAsync(string subject, string name);
+
         Task AddExternalProviderToUser(
            string subject,
            string provider,
@@ -40,6 +42,8 @@ namespace Dar.IDP.Services
             string subject);
 
         Task<bool> ActivateUserAsync(string securityCode);
+
+        Task<bool> AddUserSecret(string subject, string name, string secret);
 
         Task<bool> SaveChangesAsync();
     }

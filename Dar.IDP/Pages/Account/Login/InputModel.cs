@@ -8,6 +8,9 @@ namespace Dar.IDP.Pages.Login;
 public class InputModel
 {
     [Required]
+    public string Totp { get; set; }
+
+    [Required]
     public string? Username { get; set; }
     [Required]
     public string? Password { get; set; }
